@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from "vue";
+interface IData {
+  name: string;
+}
+interface KeyboardEvent extends Event {
+  ctrlKey: boolean;
+  code: string;
+}
 const show = ref<boolean>(true);
-const data = ref<[{ name: string }]>([
+const data = ref<IData[]>([
   {
     name: "Afman42",
   },
@@ -28,12 +35,12 @@ const filteredData = computed(() => {
     return data.value;
   }
 });
-const keyboardTap = (e: Event) => {
-  if (event.ctrlKey && event.code === "Comma") {
+const keyboardTap = (e: KeyboardEvent) => {
+  if (e.ctrlKey && e.code === "Comma") {
     show.value = !show.value;
   }
 
-  if (event.code === "Escape") {
+  if (e.code === "Escape") {
     show.value = true;
   }
 };
